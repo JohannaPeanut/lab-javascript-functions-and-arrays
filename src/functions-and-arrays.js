@@ -177,42 +177,30 @@ const matrix = [
 ];
 
 function greatestProduct(matrix) {
-  let greatestArray = [matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]];
   let testArray = [];
-  let greatestArrayProduct = matrix[0][0] * matrix[0][1] * matrix[0][2] * matrix[0][3];
+  let greatestArrayProduct = 0;
   //actually it would be very helpfull to have a function "productOfArray()" but I am not sure if that would be task conform
-  //too many ddiffrent thinngs done in one single function
+  //too many things done in one single function
 
   // iteration through lines
 
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[i].length; j++) {
-      testArray.push(matrix[i][j]);
-      if (testArray.length > 4) testArray.shift();
-      if (testArray.length === 4) {
-        let productTestArray = testArray[0] * testArray[1] * testArray[2] * testArray[3];
-        if (productTestArray > greatestArrayProduct) greatestArray = [...testArray];
-        greatestArrayProduct = greatestArray[0] * greatestArray[1] * greatestArray[2] * greatestArray[3];
-      }
+  for (let i = 0; i < matrix.length - 3; i++) {
+    for (let j = 0; j < matrix[i].length - 3; j++) {
+      testArray = [matrix[i][j], matrix[i][j + 1], matrix[i][j + 2], matrix[i][j + 3]];
+      let productTestArray = testArray[0] * testArray[1] * testArray[2] * testArray[3];
+      if (productTestArray > greatestArrayProduct) greatestArrayProduct = productTestArray;
     }
-    testArray = [];
   }
 
   // iteration through columns
 
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[i].length; j++) {
-      testArray.push(matrix[j][i]);
-      if (testArray.length > 4) testArray.shift();
-      if (testArray.length === 4) {
-        let productTestArray = testArray[0] * testArray[1] * testArray[2] * testArray[3];
-        if (productTestArray > greatestArrayProduct) greatestArray = [...testArray];
-        greatestArrayProduct = greatestArray[0] * greatestArray[1] * greatestArray[2] * greatestArray[3];
-      }
+  for (let i = 0; i < matrix.length - 3; i++) {
+    for (let j = 0; j < matrix[i].length - 3; j++) {
+      testArray = [matrix[i][j], matrix[i + 1][j], matrix[i + 2][j], matrix[i + 3][j]];
+      let productTestArray = testArray[0] * testArray[1] * testArray[2] * testArray[3];
+      if (productTestArray > greatestArrayProduct) greatestArrayProduct = productTestArray;
     }
-    testArray = [];
   }
-
   return greatestArrayProduct;
 }
 
