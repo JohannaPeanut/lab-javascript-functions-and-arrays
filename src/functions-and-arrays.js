@@ -32,7 +32,21 @@ function sumNumbers(arrayOfNum) {
 }
 
 // Iteration #3.1 Bonus:
-function sum() {}
+function sum(mixedArray) {
+  let sumResult = 0;
+
+  for (let e = 0; e < mixedArray.length; e++) {
+    if (typeof mixedArray[e] === 'object') throw new Error("Unsupported data type sir or ma'am");
+    if (typeof mixedArray[e] === 'number') {
+      sumResult += mixedArray[e];
+    } else if (typeof mixedArray[e] === 'string') {
+      sumResult += mixedArray[e].length;
+    } else if (typeof mixedArray[e] === 'boolean') {
+      if (mixedArray[e] === true) sumResult++;
+    }
+  }
+  return sumResult;
+}
 
 // Iteration #4: Calculate the average
 // Level 1: Array of numbers
@@ -58,7 +72,22 @@ function averageWordLength(arrayStr) {
 }
 
 // Bonus - Iteration #4.1
-function avg() {}
+function avg(mixedArray) {
+  if (mixedArray.length === 0) return null;
+  let sumResult = 0;
+
+  for (let e = 0; e < mixedArray.length; e++) {
+    if (typeof mixedArray[e] === 'number') {
+      sumResult += mixedArray[e];
+    } else if (typeof mixedArray[e] === 'string') {
+      sumResult += mixedArray[e].length;
+    } else if (typeof mixedArray[e] === 'boolean') {
+      if (mixedArray[e] === true) sumResult++;
+    }
+  }
+
+  return Number((sumResult / mixedArray.length).toFixed(2));
+}
 
 // Iteration #5: Unique arrays
 const wordsUnique = [
@@ -147,7 +176,45 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+function greatestProduct(matrix) {
+  let greatestArray = [matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3]];
+  let testArray = [];
+  let greatestArrayProduct = matrix[0][0] * matrix[0][1] * matrix[0][2] * matrix[0][3];
+  //actually it would be very helpfull to have a function "productOfArray()" but I am not sure if that would be task conform
+  //too many ddiffrent thinngs done in one single function
+
+  // iteration through lines
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      testArray.push(matrix[i][j]);
+      if (testArray.length > 4) testArray.shift();
+      if (testArray.length === 4) {
+        let productTestArray = testArray[0] * testArray[1] * testArray[2] * testArray[3];
+        if (productTestArray > greatestArrayProduct) greatestArray = [...testArray];
+        greatestArrayProduct = greatestArray[0] * greatestArray[1] * greatestArray[2] * greatestArray[3];
+      }
+    }
+    testArray = [];
+  }
+
+  // iteration through columns
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      testArray.push(matrix[j][i]);
+      if (testArray.length > 4) testArray.shift();
+      if (testArray.length === 4) {
+        let productTestArray = testArray[0] * testArray[1] * testArray[2] * testArray[3];
+        if (productTestArray > greatestArrayProduct) greatestArray = [...testArray];
+        greatestArrayProduct = greatestArray[0] * greatestArray[1] * greatestArray[2] * greatestArray[3];
+      }
+    }
+    testArray = [];
+  }
+
+  return greatestArrayProduct;
+}
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
