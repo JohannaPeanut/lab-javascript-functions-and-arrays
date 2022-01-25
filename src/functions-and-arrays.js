@@ -204,6 +204,38 @@ function greatestProduct(matrix) {
   return greatestArrayProduct;
 }
 
+function greatestProductOfDiagonals(matrix) {
+  let testArray = [];
+  let greatestArrayProduct = 0;
+  //actually it would be very helpfull to have a function "productOfArray()" but I am not sure if that would be task conform
+  //too many things done in one single function
+
+  // iteration through diagonals \
+
+  for (let i = 0; i < matrix.length - 3; i++) {
+    for (let j = 0; j < matrix[i].length - 3; j++) {
+      testArray = [matrix[i][j], matrix[i + 1][j + 1], matrix[i + 2][j + 2], matrix[i + 3][j + 3]];
+      //console.log(`Testarry: ${testArray}`);
+      let productTestArray = testArray[0] * testArray[1] * testArray[2] * testArray[3];
+      //console.log(`Product of Testarray: ${productTestArray}`);
+      if (productTestArray > greatestArrayProduct) greatestArrayProduct = productTestArray;
+    }
+  }
+
+  // iteration through diagonals /
+
+  for (let i = matrix.length - 1; i >= 3; i--) {
+    for (let j = 0; j < matrix[i].length - 3; j++) {
+      testArray = [matrix[i][j], matrix[i - 1][j + 1], matrix[i - 2][j + 2], matrix[i - 3][j + 3]];
+      //console.log(testArray);
+      let productTestArray = testArray[0] * testArray[1] * testArray[2] * testArray[3];
+      //console.log(productTestArray);
+      if (productTestArray > greatestArrayProduct) greatestArrayProduct = productTestArray;
+    }
+  }
+  return greatestArrayProduct;
+}
+
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
 if (typeof module !== 'undefined') {
